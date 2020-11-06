@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Reinhardt_Gong</string>
+
+    <string name="hintSerialNumber">Enter Serial Number</string>
+    <string name="hintSystolic">Enter Systolic Pressure</string>
+    <string name="hintDiastolic">Enter Diastolic Pressure</string>
+    <string name="btnAddReading">Add Reading</string>
+    <string name="enterNewSerialNumber">Enter New Serial Number</string>
+    <string name="enterNewSystolic">Enter New Systolic Pressure</string>
+    <string name="enterNewDiastolic">Enter New Diastolic Pressure</string>
+    <string name="btnUpdate">Update</string>
+    <string name="btnDelete">Delete</string>
+    <string name="done">Done</string>
+
+
 </resources>
