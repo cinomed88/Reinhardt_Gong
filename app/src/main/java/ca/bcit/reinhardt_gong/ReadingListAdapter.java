@@ -43,9 +43,13 @@ public class ReadingListAdapter extends ArrayAdapter<Reading> {
         TextView tvTime = listViewItem.findViewById(R.id.textViewTime);
 
         Reading reading = readingList.get(position);
+        String systolic = Integer.toString(reading.getSystolicReading());
+        String diastolic = Integer.toString(reading.getDiastolicReading());
+
+
         tvSerialNumber.setText(reading.getSerial_number());
-        tvSystolic.setText(reading.getSystolicReading());
-        tvDiastolic.setText(reading.getDiastolicReading());
+        tvSystolic.setText(systolic);
+        tvDiastolic.setText(diastolic);
         tvDate.setText(reading.getReadingDate());
         tvTime.setText(reading.getReadingTime());
 

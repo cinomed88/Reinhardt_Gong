@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -120,6 +123,27 @@ public class MainActivity extends AppCompatActivity {
                         "something went wrong.\n" + e.toString(),
                         Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReadings.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                readingList.clear();
+                for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
+                    Reading reading = taskSnapshot.getValue(Reading.class);
+                    readingList.add(reading);
+                }
+
+                ReadingListAdapter adapter = new ReadingListAdapter(MainActivity.this, readingList);
+                lvReadings.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 
