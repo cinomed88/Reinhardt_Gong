@@ -251,6 +251,39 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+        final Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteReading(readingId);
+
+                alertDialog.dismiss();
+            }
+        });
+
+    }
+
+    private void deleteReading(String id) {
+        DatabaseReference dbRef = databaseReadings.child(id);
+
+        Task setRemoveTask = dbRef.removeValue();
+        setRemoveTask.addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                Toast.makeText(MainActivity.this,
+                        "Reading Deleted.",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        setRemoveTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this,
+                        "Something went wrong.\n" + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
