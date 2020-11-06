@@ -6,6 +6,7 @@ public class Reading {
     String readingTime;
     int systolicReading;
     int diastolicReading;
+    String readingId;
 
     public enum condition {
         NORMAL,
@@ -17,13 +18,18 @@ public class Reading {
 
     public Reading() {}
 
-    public Reading(String serial_number,
+    public Reading(String readingId, String serial_number,
                    String readingDate, String readingTime, int systolicReading, int diastolicReading) {
+        this.readingId = readingId;
         this.serial_number = serial_number;
         this.systolicReading = systolicReading;
         this.readingDate = readingDate;
         this.readingTime = readingTime;
         this.diastolicReading = diastolicReading;
+    }
+
+    public String getReadingId() {
+        return readingId;
     }
 
     public String getSerial_number() {

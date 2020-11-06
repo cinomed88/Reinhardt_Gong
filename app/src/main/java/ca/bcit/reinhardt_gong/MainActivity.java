@@ -1,12 +1,15 @@
 package ca.bcit.reinhardt_gong;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LauncherActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -65,6 +68,24 @@ public class MainActivity extends AppCompatActivity {
         lvReadings = findViewById(R.id.lvReadings);
         readingList = new ArrayList<Reading>();
 
+
+        lvReadings.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Reading reading = readingList.get(position);
+
+                String systolic = Integer.toString(reading.getSystolicReading());
+                String diastolic = Integer.toString(reading.getDiastolicReading());
+
+                showUpdateDialog(reading.getReadingId(),
+                        reading.getSerial_number(),systolic,
+                        diastolic);
+
+                return false;
+            }
+        });
+
+
     }
 
 
@@ -72,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addTask() {
         Calendar calendar;
-
         calendar = Calendar.getInstance();
-
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
         String currentDate = dateFormatter.format(calendar.getTime());
@@ -101,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String id = databaseReadings.push().getKey();
-        Reading task = new Reading(serialNumber, currentDate, currentTime, systolic, diastolic);
+        Reading task = new Reading(id, serialNumber, currentDate, currentTime, systolic, diastolic);
 
         com.google.android.gms.tasks.Task setValueTask = databaseReadings.child(id).setValue(task);
 
@@ -146,5 +165,94 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
+
+    private void updateReading(String id, String serialNum, String Systolic, String Diastolic) {
+        Calendar calendar;
+        calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+        String currentDate = dateFormatter.format(calendar.getTime());
+        String currentTime = timeFormatter.format(calendar.getTime());
+
+
+        DatabaseReference dbRef = databaseReadings.child(id);
+
+        int systolic = Integer.parseInt(Systolic);
+        int diastolic = Integer.parseInt(Diastolic);
+
+        Reading reading = new Reading(id, serialNum, currentDate, currentTime, systolic, diastolic);
+
+        Task setValueTask = dbRef.setValue(reading);
+
+        setValueTask.addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                Toast.makeText(MainActivity.this,
+                        "Student Updated.",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        setValueTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this,
+                        "Something went wrong.\n" + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void showUpdateDialog(final String readingId, String serialNumber, String systolic, String diastolic) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextSerialNumber = dialogView.findViewById(R.id.editTextSerialNumber);
+        editTextSerialNumber.setText(serialNumber);
+
+        final EditText editTextSystolic = dialogView.findViewById(R.id.editTextSystolic);
+        editTextSystolic.setText(systolic);
+
+        final EditText editTextDiastolic = dialogView.findViewById(R.id.editTextDiastolic);
+        editTextDiastolic.setText(diastolic);
+
+
+        final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
+
+        dialogBuilder.setTitle("Update Reading " + serialNumber);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String serialNumber = editTextSerialNumber.getText().toString().trim();
+                String systolic = editTextSystolic.getText().toString().trim();
+                String diastolic = editTextDiastolic.getText().toString().trim();
+
+                if (TextUtils.isEmpty(serialNumber)) {
+                    editTextSerialNumber.setError("Serial Number is required");
+                    return;
+                } else if (TextUtils.isEmpty(systolic)) {
+                    editTextSystolic.setError("Systolic value is required");
+                    return;
+                } else if (TextUtils.isEmpty(diastolic)) {
+                    editTextDiastolic.setError("Diastolic is required");
+                    return;
+                }
+
+                updateReading(readingId, serialNumber, systolic, diastolic);
+
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+
 
 }
