@@ -37,6 +37,13 @@
         android:text="@string/btnAddReading" />
 
 
+    <Button
+        android:id="@+id/buttonShowReports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonShowReports" />
+
+
     <ListView
         android:id="@+id/lvReadings"
         android:layout_width="match_parent"

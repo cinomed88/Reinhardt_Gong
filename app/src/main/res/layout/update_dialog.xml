@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextSerialNumber"
+        android:id="@+id/editTextSerialNumber2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -14,7 +14,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextSystolic"
+        android:id="@+id/editTextSystolic2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -22,7 +22,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextDiastolic"
+        android:id="@+id/editTextDiastolic2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
