@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LauncherActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -35,6 +37,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    final int SYSTOLIC_HC_LIMIT = 180;
+    final int DIASTOLIC_HC_LIMIT = 120;
 
     EditText editTextSerialNumber;
     EditText editTextSystolic;
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAddReading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addTask();
+                addTask(v);
             }
         });
 
@@ -85,13 +89,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnShowReport = (Button)findViewById(R.id.buttonShowReports);
 
+        btnShowReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ReportActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-
-
-
-    private void addTask() {
+    private void addTask(View v) {
         Calendar calendar;
         calendar = Calendar.getInstance();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -114,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(systolicString)) {
             Toast.makeText(this, "You must enter a Systolic reading.", Toast.LENGTH_LONG).show();
             return;
-        }  if (TextUtils.isEmpty(diastolicString)) {
+        }
+        if (TextUtils.isEmpty(diastolicString)) {
             Toast.makeText(this, "You must enter a Diastolic reading.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -143,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Show Warning Message for Hypertensive Crisis range
+        if (systolic > SYSTOLIC_HC_LIMIT || diastolic > DIASTOLIC_HC_LIMIT) {
+            onClickShowAlert(v);
+        }
     }
 
     @Override
@@ -211,13 +226,13 @@ public class MainActivity extends AppCompatActivity {
         final View dialogView = inflater.inflate(R.layout.update_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText editTextSerialNumber = dialogView.findViewById(R.id.editTextSerialNumber);
+        final EditText editTextSerialNumber = dialogView.findViewById(R.id.editTextSerialNumber2);
         editTextSerialNumber.setText(serialNumber);
 
-        final EditText editTextSystolic = dialogView.findViewById(R.id.editTextSystolic);
+        final EditText editTextSystolic = dialogView.findViewById(R.id.editTextSystolic2);
         editTextSystolic.setText(systolic);
 
-        final EditText editTextDiastolic = dialogView.findViewById(R.id.editTextDiastolic);
+        final EditText editTextDiastolic = dialogView.findViewById(R.id.editTextDiastolic2);
         editTextDiastolic.setText(diastolic);
 
 
@@ -249,6 +264,12 @@ public class MainActivity extends AppCompatActivity {
                 updateReading(readingId, serialNumber, systolic, diastolic);
 
                 alertDialog.dismiss();
+
+                // Show Warning Message for Hypertensive Crisis range
+                if (Integer.parseInt(systolic) > SYSTOLIC_HC_LIMIT ||
+                        Integer.parseInt(diastolic) > DIASTOLIC_HC_LIMIT) {
+                    onClickShowAlert(v);
+                }
             }
         });
 
@@ -286,6 +307,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Show Warning Message for Hypertensive Crisis range
+    public void onClickShowAlert(View view) {
+        AlertDialog.Builder myAlertBuilder =
+                new AlertDialog.Builder(MainActivity.this);
+        myAlertBuilder.setTitle("Warning");
+        myAlertBuilder.setMessage("You are in the Hypertensive Crisis range!\nBe careful!");
 
+        myAlertBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                Toast.makeText(getApplicationContext(),"Pressed OK",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        myAlertBuilder.show();
+    }
 
 }
