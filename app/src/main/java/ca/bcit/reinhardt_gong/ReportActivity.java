@@ -25,6 +25,7 @@ public class ReportActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Reading> arrayList;
     private ArrayList<Reading> arrayList2;
+
     private ArrayList<Reading> arrayList3;
 
     private FirebaseDatabase database;
@@ -40,6 +41,8 @@ public class ReportActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
+
         arrayList3 = new ArrayList<>();
 
 
@@ -53,7 +56,6 @@ public class ReportActivity extends AppCompatActivity {
                     Reading report = snapshot.getValue(Reading.class);
                     arrayList.add(report);
                 }
-
 
                 int[] badIndexes = new int[arrayList.size()];
                 for (int i = 0; i < arrayList.size(); i++) {
@@ -73,7 +75,7 @@ public class ReportActivity extends AppCompatActivity {
                     if (avg_diastolic > arrayList.get(i).diastolicReading && badIndexes[i] != 2) {
                         arrayList3.add(new Reading(arrayList.get(i).getReadingId(), arrayList.get(i).getSerial_number(), arrayList.get(i).getReadingDate(), arrayList.get(i).getReadingTime(),
                                 avg_systolic/n, avg_diastolic/n));
-                    } else {
+                    } else if (badIndexes[i] != 2) {
                         arrayList3.add(arrayList.get(i));
                     }
                 }
@@ -87,7 +89,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ReportAdapter(arrayList, this);
+        adapter = new ReportAdapter(arrayList3, this);
         recyclerView.setAdapter(adapter);
     }
 }
