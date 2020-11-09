@@ -15,13 +15,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Report> arrayList;
+    private ArrayList<Reading> arrayList;
+    private ArrayList<Reading> arrayList2;
+
+    private ArrayList<Reading> arrayList3;
+
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -35,6 +41,10 @@ public class ReportActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
+        arrayList2 = new ArrayList<>();
+
+        arrayList3 = new ArrayList<>();
+
 
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("readings");
@@ -43,9 +53,34 @@ public class ReportActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 arrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Report report = snapshot.getValue(Report.class);
+                    Reading report = snapshot.getValue(Reading.class);
                     arrayList.add(report);
                 }
+
+                int[] badIndexes = new int[arrayList.size()];
+                for (int i = 0; i < arrayList.size(); i++) {
+                    int n = 1;
+                    float avg_systolic = arrayList.get(i).getSystolicReading();
+                    float avg_diastolic = arrayList.get(i).getDiastolicReading();
+                    for (int j = i + 1; j < arrayList.size(); j++) {
+                        if (arrayList.get(i).getSerial_number().equals(arrayList.get(j).getSerial_number())) {
+                            if (arrayList.get(i).getReadingDate().substring(5,7).equals(arrayList.get(j).getReadingDate().substring(5,7))) {
+                                avg_systolic += (arrayList.get(j).getSystolicReading());
+                                avg_diastolic += (arrayList.get(i).getDiastolicReading());
+                                n++;
+                                badIndexes[j] = 2;
+                            }
+                        }
+                    }
+                    if (avg_diastolic > arrayList.get(i).diastolicReading && badIndexes[i] != 2) {
+                        arrayList3.add(new Reading(arrayList.get(i).getReadingId(), arrayList.get(i).getSerial_number(), arrayList.get(i).getReadingDate(), arrayList.get(i).getReadingTime(),
+                                avg_systolic/n, avg_diastolic/n));
+                    } else if (badIndexes[i] != 2) {
+                        arrayList3.add(arrayList.get(i));
+                    }
+                }
+                arrayList = arrayList3;
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -54,7 +89,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        adapter = new ReportAdapter(arrayList, this);
+        adapter = new ReportAdapter(arrayList3, this);
         recyclerView.setAdapter(adapter);
     }
 }

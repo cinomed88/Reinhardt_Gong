@@ -13,21 +13,21 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hintSerialNumber"
-        android:inputType="text|number" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextSystolic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintSystolic"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/editTextDiastolic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintDiastolic"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal" />
 
 
     <Button

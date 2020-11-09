@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportViewHolder> {
 
-    private ArrayList<Report> arrayList;
+    private ArrayList<Reading> arrayList;
     private Context context;
 
-    public ReportAdapter(ArrayList<Report> arrayList, Context context) {
+    public ReportAdapter(ArrayList<Reading> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -33,11 +33,16 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 
     @Override
     public void onBindViewHolder(@NonNull ReportViewHolder holder, int position) {
-        holder.tv_month.setText(arrayList.get(position).getMonth());
-        holder.tv_DSN.setText(arrayList.get(position).getDSN());
-        holder.tv_systolic.setText(String.valueOf(arrayList.get(position).getSystolic()));
-        holder.tv_diastolic.setText(String.valueOf(arrayList.get(position).getDiastolic()));
-        holder.tv_avgCondition.setText(arrayList.get(position).getAvgCondition());
+//        holder.tv_month.setText(arrayList.get(position).getMonth());
+//        holder.tv_DSN.setText(arrayList.get(position).getDSN());
+//        holder.tv_systolic.setText(String.valueOf(arrayList.get(position).getSystolic()));
+//        holder.tv_diastolic.setText(String.valueOf(arrayList.get(position).getDiastolic()));
+//        holder.tv_avgCondition.setText(arrayList.get(position).getAvgCondition());
+        holder.tv_month.setText(arrayList.get(position).getReadingDate());
+        holder.tv_DSN.setText(arrayList.get(position).getSerial_number());
+        holder.tv_systolic.setText(Float.toString(arrayList.get(position).getSystolicReading()));
+        holder.tv_diastolic.setText(Float.toString(arrayList.get(position).getDiastolicReading()));
+        holder.tv_avgCondition.setText(arrayList.get(position).getCondition());
     }
 
     @Override

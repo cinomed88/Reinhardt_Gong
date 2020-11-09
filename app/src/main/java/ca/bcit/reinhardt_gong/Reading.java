@@ -1,31 +1,52 @@
 package ca.bcit.reinhardt_gong;
 
+import android.content.Context;
+
+import androidx.constraintlayout.motion.utils.HyperSpline;
+
 public class Reading {
     String serial_number;
     String readingDate;
     String readingTime;
-    int systolicReading;
-    int diastolicReading;
+    float systolicReading;
+    float diastolicReading;
     String readingId;
+    String condition;
 
-    public enum condition {
-        NORMAL,
-        ELEVATED,
-        STAGE1,
-        STAGE2,
-        HYPERTENSIVE
-    }
+//    public enum Condition {
+//        NORMAL,
+//        ELEVATED,
+//        STAGE1,
+//        STAGE2,
+//        HYPERTENSIVE
+//    }
 
     public Reading() {}
 
     public Reading(String readingId, String serial_number,
-                   String readingDate, String readingTime, int systolicReading, int diastolicReading) {
+                   String readingDate, String readingTime, float systolicReading, float diastolicReading) {
         this.readingId = readingId;
         this.serial_number = serial_number;
         this.systolicReading = systolicReading;
         this.readingDate = readingDate;
         this.readingTime = readingTime;
         this.diastolicReading = diastolicReading;
+        if ((systolicReading < 120.0) && (diastolicReading < 80.0) ) {
+//            this.condition = Condition.NORMAL;
+            this.condition = "Normal";
+        } else if ((systolicReading <= 129.0 && systolicReading>= 120) && (diastolicReading < 80.0) ) {
+//            this.condition = Condition.ELEVATED;
+            this.condition = "Elevated";
+        } else if ((systolicReading <= 139.0) && (diastolicReading >= 80.0 && diastolicReading<=89)){
+//            this.condition = Condition.STAGE1;
+            this.condition = "Stage 1";
+        } else if ((systolicReading <= 140.0) && (diastolicReading <= 90.0)) {
+//            this.condition = Condition.STAGE2;
+            this.condition = "Stage 2";
+        } else {
+//            this.condition = Condition.HYPERTENSIVE;
+            this.condition="Stage 3";
+        }
     }
 
     public String getReadingId() {
@@ -45,11 +66,11 @@ public class Reading {
     }
 
 
-    public int getSystolicReading() {
+    public float getSystolicReading() {
         return systolicReading;
     }
 
-    public int getDiastolicReading() {
+    public float getDiastolicReading() {
         return diastolicReading;
     }
 
@@ -57,7 +78,7 @@ public class Reading {
         this.serial_number = serial_number;
     }
 
-    public void setSystolicReading(int systolicReading) {
+    public void setSystolicReading(float systolicReading) {
         this.systolicReading = systolicReading;
     }
 
@@ -68,7 +89,14 @@ public class Reading {
         this.readingTime = readingDate;
     }
 
-    public void setDiastolicReading(int diastolicReading) {
+    public void setDiastolicReading(float diastolicReading) {
         this.diastolicReading = diastolicReading;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+    public String getCondition() {
+        return condition;
     }
 }

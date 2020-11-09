@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hintSystolic"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/editTextDiastolic2"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hintDiastolic"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal" />
 
 
     <Button

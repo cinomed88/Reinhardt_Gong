@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Reading reading = readingList.get(position);
 
-                String systolic = Integer.toString(reading.getSystolicReading());
-                String diastolic = Integer.toString(reading.getDiastolicReading());
+                String systolic = Float.toString(reading.getSystolicReading());
+                String diastolic = Float.toString(reading.getDiastolicReading());
 
                 showUpdateDialog(reading.getReadingId(),
                         reading.getSerial_number(),systolic,
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
         String serialNumber = editTextSerialNumber.getText().toString().trim();
         String diastolicString = editTextDiastolic.getText().toString().trim();
         String systolicString = editTextSystolic.getText().toString().trim();
-        int systolic = Integer.parseInt(systolicString);
-        int diastolic = Integer.parseInt(diastolicString);
+        float systolic = Float.parseFloat(systolicString);
+        float diastolic = Float.parseFloat(diastolicString);
 
         if (TextUtils.isEmpty(serialNumber)) {
             Toast.makeText(this, "You must enter a Task.", Toast.LENGTH_LONG).show();
@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference dbRef = databaseReadings.child(id);
 
-        int systolic = Integer.parseInt(Systolic);
-        int diastolic = Integer.parseInt(Diastolic);
+        float systolic = Float.parseFloat(Systolic);
+        float diastolic = Float.parseFloat(Diastolic);
 
         Reading reading = new Reading(id, serialNum, currentDate, currentTime, systolic, diastolic);
 
@@ -266,8 +266,8 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.dismiss();
 
                 // Show Warning Message for Hypertensive Crisis range
-                if (Integer.parseInt(systolic) > SYSTOLIC_HC_LIMIT ||
-                        Integer.parseInt(diastolic) > DIASTOLIC_HC_LIMIT) {
+                if (Float.parseFloat(systolic) > SYSTOLIC_HC_LIMIT ||
+                        Float.parseFloat(diastolic) > DIASTOLIC_HC_LIMIT) {
                     onClickShowAlert(v);
                 }
             }
