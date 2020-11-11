@@ -33,19 +33,24 @@
         android:id="@+id/buttonAddReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnAddReading" />
+        android:text="@string/btnAddReading"
+        android:textColor="@color/btnBackground"
+        android:backgroundTint="@color/colorPrimary"/>
 
 
     <Button
         android:id="@+id/buttonShowReports"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/buttonShowReports" />
+        android:text="@string/buttonShowReports"
+        android:textColor="@color/btnBackground"
+        android:backgroundTint="@color/colorPrimary"/>
 
 
     <ListView
         android:id="@+id/lvReadings"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="match_parent" />
 
 
