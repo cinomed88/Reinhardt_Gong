@@ -1,11 +1,7 @@
 package ca.bcit.reinhardt_gong;
 
-import android.content.Context;
-
-import androidx.constraintlayout.motion.utils.HyperSpline;
-
 public class Reading {
-    String serial_number;
+    String family_member;
     String readingDate;
     String readingTime;
     float systolicReading;
@@ -23,10 +19,10 @@ public class Reading {
 
     public Reading() {}
 
-    public Reading(String readingId, String serial_number,
+    public Reading(String readingId, String family_member,
                    String readingDate, String readingTime, float systolicReading, float diastolicReading) {
         this.readingId = readingId;
-        this.serial_number = serial_number;
+        this.family_member = family_member;
         this.systolicReading = systolicReading;
         this.readingDate = readingDate;
         this.readingTime = readingTime;
@@ -53,8 +49,8 @@ public class Reading {
         return readingId;
     }
 
-    public String getSerial_number() {
-        return serial_number;
+    public String getFamily_member() {
+        return family_member;
     }
 
     public String getReadingDate() {
@@ -74,8 +70,8 @@ public class Reading {
         return diastolicReading;
     }
 
-    public void setSerial_number(String serial_number) {
-        this.serial_number = serial_number;
+    public void setFamily_member(String family_member) {
+        this.family_member = family_member;
     }
 
     public void setSystolicReading(float systolicReading) {

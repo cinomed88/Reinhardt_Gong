@@ -39,7 +39,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 //        holder.tv_diastolic.setText(String.valueOf(arrayList.get(position).getDiastolic()));
 //        holder.tv_avgCondition.setText(arrayList.get(position).getAvgCondition());
         holder.tv_month.setText(arrayList.get(position).getReadingDate());
-        holder.tv_DSN.setText(arrayList.get(position).getSerial_number());
+        holder.tv_DSN.setText(arrayList.get(position).getFamily_member());
         holder.tv_systolic.setText(Float.toString(arrayList.get(position).getSystolicReading()));
         holder.tv_diastolic.setText(Float.toString(arrayList.get(position).getDiastolicReading()));
         holder.tv_avgCondition.setText(arrayList.get(position).getCondition());

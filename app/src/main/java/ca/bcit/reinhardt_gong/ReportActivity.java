@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,9 +14,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -63,7 +59,7 @@ public class ReportActivity extends AppCompatActivity {
                     float avg_systolic = arrayList.get(i).getSystolicReading();
                     float avg_diastolic = arrayList.get(i).getDiastolicReading();
                     for (int j = i + 1; j < arrayList.size(); j++) {
-                        if (arrayList.get(i).getSerial_number().equals(arrayList.get(j).getSerial_number())) {
+                        if (arrayList.get(i).getFamily_member().equals(arrayList.get(j).getFamily_member())) {
                             if (arrayList.get(i).getReadingDate().substring(5,7).equals(arrayList.get(j).getReadingDate().substring(5,7))) {
                                 avg_systolic += (arrayList.get(j).getSystolicReading());
                                 avg_diastolic += (arrayList.get(i).getDiastolicReading());
@@ -73,7 +69,7 @@ public class ReportActivity extends AppCompatActivity {
                         }
                     }
                     if (avg_diastolic > arrayList.get(i).diastolicReading && badIndexes[i] != 2) {
-                        arrayList3.add(new Reading(arrayList.get(i).getReadingId(), arrayList.get(i).getSerial_number(), arrayList.get(i).getReadingDate(), arrayList.get(i).getReadingTime(),
+                        arrayList3.add(new Reading(arrayList.get(i).getReadingId(), arrayList.get(i).getFamily_member(), arrayList.get(i).getReadingDate(), arrayList.get(i).getReadingTime(),
                                 avg_systolic/n, avg_diastolic/n));
                     } else if (badIndexes[i] != 2) {
                         arrayList3.add(arrayList.get(i));

@@ -47,7 +47,7 @@ public class ReadingListAdapter extends ArrayAdapter<Reading> {
         String diastolic = Float.toString(reading.getDiastolicReading());
 
 
-        tvSerialNumber.setText(reading.getSerial_number());
+        tvSerialNumber.setText(reading.getFamily_member());
         tvSystolic.setText(systolic);
         tvDiastolic.setText(diastolic);
         tvDate.setText(reading.getReadingDate());

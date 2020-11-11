@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.LauncherActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -40,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     final int SYSTOLIC_HC_LIMIT = 180;
     final int DIASTOLIC_HC_LIMIT = 120;
 
-    EditText editTextSerialNumber;
+    Spinner spinnerFamily;
     EditText editTextSystolic;
     EditText editTextDiastolic;
     TextView tvw;
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReadings = FirebaseDatabase.getInstance().getReference("readings");
 
-        editTextSerialNumber = findViewById(R.id.editTextSerialNumber);
+        spinnerFamily = findViewById(R.id.spinnerFamily);
         editTextSystolic = findViewById(R.id.editTextSystolic);
         editTextDiastolic = findViewById(R.id.editTextDiastolic);
         buttonAddReading = findViewById(R.id.buttonAddReading);
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 String diastolic = Float.toString(reading.getDiastolicReading());
 
                 showUpdateDialog(reading.getReadingId(),
-                        reading.getSerial_number(),systolic,
+                        reading.getFamily_member(),systolic,
                         diastolic);
 
                 return false;
@@ -109,13 +105,13 @@ public class MainActivity extends AppCompatActivity {
         String currentTime = timeFormatter.format(calendar.getTime());
 
 
-        String serialNumber = editTextSerialNumber.getText().toString().trim();
+        String family = spinnerFamily.getSelectedItem().toString().trim();
         String diastolicString = editTextDiastolic.getText().toString().trim();
         String systolicString = editTextSystolic.getText().toString().trim();
         float systolic = Float.parseFloat(systolicString);
         float diastolic = Float.parseFloat(diastolicString);
 
-        if (TextUtils.isEmpty(serialNumber)) {
+        if (TextUtils.isEmpty(family)) {
             Toast.makeText(this, "You must enter a Task.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -130,16 +126,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String id = databaseReadings.push().getKey();
-        Reading task = new Reading(id, serialNumber, currentDate, currentTime, systolic, diastolic);
+        Reading task = new Reading(id, family, currentDate, currentTime, systolic, diastolic);
 
         com.google.android.gms.tasks.Task setValueTask = databaseReadings.child(id).setValue(task);
 
         setValueTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
-                Toast.makeText(MainActivity.this,"Student added.",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Reading added.",Toast.LENGTH_LONG).show();
 
-                editTextSerialNumber.setText("");
+                spinnerFamily.setSelection(0);
                 editTextSystolic.setText("");
                 editTextDiastolic.setText("");
             }
@@ -181,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updateReading(String id, String serialNum, String Systolic, String Diastolic) {
+    private void updateReading(String id, String family_member, String Systolic, String Diastolic) {
         Calendar calendar;
         calendar = Calendar.getInstance();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -195,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         float systolic = Float.parseFloat(Systolic);
         float diastolic = Float.parseFloat(Diastolic);
 
-        Reading reading = new Reading(id, serialNum, currentDate, currentTime, systolic, diastolic);
+        Reading reading = new Reading(id, family_member, currentDate, currentTime, systolic, diastolic);
 
         Task setValueTask = dbRef.setValue(reading);
 
@@ -218,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showUpdateDialog(final String readingId, String serialNumber, String systolic, String diastolic) {
+    private void showUpdateDialog(final String readingId, String familyMember, String systolic, String diastolic) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -227,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editTextSerialNumber = dialogView.findViewById(R.id.editTextSerialNumber2);
-        editTextSerialNumber.setText(serialNumber);
+        editTextSerialNumber.setText(familyMember);
 
         final EditText editTextSystolic = dialogView.findViewById(R.id.editTextSystolic2);
         editTextSystolic.setText(systolic);
@@ -238,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button btnUpdate = dialogView.findViewById(R.id.btnUpdate);
 
-        dialogBuilder.setTitle("Update Reading " + serialNumber);
+        dialogBuilder.setTitle("Update Reading " + familyMember);
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();

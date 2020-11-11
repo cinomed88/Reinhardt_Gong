@@ -20,4 +20,11 @@
     <string name="tv_diastolic_text">Diastolic Reading:</string>
     <string name="tv_avgCondition_text">Average Condition</string>
 
+    <array name="familyMember">
+        <item>father@home.com</item>
+        <item>mother@home.com</item>
+        <item>grandma@home.com</item>
+        <item>grandpa@home.com</item>
+    </array>
+
 </resources>
