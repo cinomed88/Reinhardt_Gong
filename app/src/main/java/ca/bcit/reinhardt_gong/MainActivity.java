@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         btnShowReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),ReportActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
                 startActivity(intent);
             }
         });
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Object o) {
                 Toast.makeText(MainActivity.this,
-                        "Student Updated.",Toast.LENGTH_LONG).show();
+                        "Reading Updated.",Toast.LENGTH_LONG).show();
             }
         });
 
