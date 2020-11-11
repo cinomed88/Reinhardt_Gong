@@ -7,10 +7,13 @@
 
     <EditText
         android:id="@+id/editTextSerialNumber2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:ems="10"
         android:hint="@string/hintSerialNumber"
+        android:textColor="@color/common_google_signin_btn_text_dark_disabled"
+        android:focusable="false"
+        android:cursorVisible="false"
         android:inputType="textPersonName" />
 
     <EditText

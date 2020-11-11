@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText editTextSerialNumber = dialogView.findViewById(R.id.editTextSerialNumber2);
         editTextSerialNumber.setText(familyMember);
+//        editTextSerialNumber.setFocusable(false);
 
         final EditText editTextSystolic = dialogView.findViewById(R.id.editTextSystolic2);
         editTextSystolic.setText(systolic);
