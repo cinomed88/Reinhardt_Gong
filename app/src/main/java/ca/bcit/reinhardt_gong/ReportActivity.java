@@ -20,8 +20,6 @@ public class ReportActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Reading> arrayList;
-    private ArrayList<Reading> arrayList2;
-
     private ArrayList<Reading> arrayList3;
 
     private FirebaseDatabase database;
@@ -37,7 +35,6 @@ public class ReportActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
-        arrayList2 = new ArrayList<>();
         arrayList3 = new ArrayList<>();
 
 
@@ -61,7 +58,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (arrayList.get(i).getFamily_member().equals(arrayList.get(j).getFamily_member())) {
                             if (arrayList.get(i).getReadingDate().substring(0,3).equals(arrayList.get(j).getReadingDate().substring(0,3))) {
                                 avg_systolic += (arrayList.get(j).getSystolicReading());
-                                avg_diastolic += (arrayList.get(i).getDiastolicReading());
+                                avg_diastolic += (arrayList.get(j).getDiastolicReading());
                                 n++;
                                 badIndexes[j] = 2;
                             }

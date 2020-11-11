@@ -32,16 +32,16 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/tv_DSN_text"
+            android:id="@+id/tv_FM_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/edge"
-            android:text="@string/tv_DSN_text"
+            android:text="@string/tv_FM_text"
             android:textColor="@color/textPrimaryColor"
             android:padding="5dp"/>
         <TextView
-            android:id="@+id/tv_DSN"
+            android:id="@+id/tv_FM"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -103,7 +103,7 @@
         <TextView
             android:id="@+id/tv_avgCondition_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/edge"
             android:text="@string/tv_avgCondition_text"

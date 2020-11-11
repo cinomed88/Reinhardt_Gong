@@ -37,22 +37,23 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 
     @Override
     public void onBindViewHolder(@NonNull ReportViewHolder holder, int position) {
-//        holder.tv_month.setText(arrayList.get(position).getMonth());
-//        holder.tv_DSN.setText(arrayList.get(position).getDSN());
-//        holder.tv_systolic.setText(String.valueOf(arrayList.get(position).getSystolic()));
-//        holder.tv_diastolic.setText(String.valueOf(arrayList.get(position).getDiastolic()));
-//        holder.tv_avgCondition.setText(arrayList.get(position).getAvgCondition());
+
         String dateString = arrayList.get(position).getReadingDate();
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
         Date date  = dateFormat.parse(dateString, new ParsePosition(0));
         DateFormat monthFormat = new SimpleDateFormat("MMM yyyy");
         String currentMonth = monthFormat.format(date);
 
+        String avgCondition = arrayList.get(position).getCondition();
+        if (avgCondition.contains("Stage")){
+            avgCondition = "High blood pressure\n(" + avgCondition + ")";
+        }
+
         holder.tv_month.setText(currentMonth);
-        holder.tv_DSN.setText(arrayList.get(position).getFamily_member());
+        holder.tv_FM.setText(arrayList.get(position).getFamily_member());
         holder.tv_systolic.setText(Float.toString(arrayList.get(position).getSystolicReading()));
         holder.tv_diastolic.setText(Float.toString(arrayList.get(position).getDiastolicReading()));
-        holder.tv_avgCondition.setText(arrayList.get(position).getCondition());
+        holder.tv_avgCondition.setText(avgCondition);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 
     public class ReportViewHolder extends RecyclerView.ViewHolder {
         TextView tv_month;
-        TextView tv_DSN;
+        TextView tv_FM;
         TextView tv_systolic;
         TextView tv_diastolic;
         TextView tv_avgCondition;
@@ -71,7 +72,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
         public ReportViewHolder(@NonNull View itemView) {
             super(itemView);
             this.tv_month = itemView.findViewById(R.id.tv_month);
-            this.tv_DSN = itemView.findViewById(R.id.tv_DSN);
+            this.tv_FM = itemView.findViewById(R.id.tv_FM);
             this.tv_systolic = itemView.findViewById(R.id.tv_systolic);
             this.tv_diastolic = itemView.findViewById(R.id.tv_diastolic);
             this.tv_avgCondition = itemView.findViewById(R.id.tv_avgCondition);

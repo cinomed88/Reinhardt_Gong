@@ -105,17 +105,9 @@ public class MainActivity extends AppCompatActivity {
         String currentDate = dateFormatter.format(calendar.getTime());
         String currentTime = timeFormatter.format(calendar.getTime());
 
-
         String family = spinnerFamily.getSelectedItem().toString().trim();
         String diastolicString = editTextDiastolic.getText().toString().trim();
         String systolicString = editTextSystolic.getText().toString().trim();
-        float systolic = Float.parseFloat(systolicString);
-        float diastolic = Float.parseFloat(diastolicString);
-
-        if (TextUtils.isEmpty(family)) {
-            Toast.makeText(this, "You must enter a Task.", Toast.LENGTH_LONG).show();
-            return;
-        }
 
         if (TextUtils.isEmpty(systolicString)) {
             Toast.makeText(this, "You must enter a Systolic reading.", Toast.LENGTH_LONG).show();
@@ -125,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "You must enter a Diastolic reading.", Toast.LENGTH_LONG).show();
             return;
         }
+
+        float systolic = Float.parseFloat(systolicString);
+        float diastolic = Float.parseFloat(diastolicString);
 
         String id = databaseReadings.push().getKey();
         Reading task = new Reading(id, family, currentDate, currentTime, systolic, diastolic);

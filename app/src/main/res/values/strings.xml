@@ -15,7 +15,7 @@
     <string name="buttonShowReports">Show Reports</string>
     <string name="title_activity_report">ReportActivity</string>
     <string name="tv_month">Month-to-date average readings for</string>
-    <string name="tv_DSN_text">Device Serial Number:</string>
+    <string name="tv_FM_text">Family Member:</string>
     <string name="tv_systolic_text">Systolic Reading:</string>
     <string name="tv_diastolic_text">Diastolic Reading:</string>
     <string name="tv_avgCondition_text">Average Condition</string>

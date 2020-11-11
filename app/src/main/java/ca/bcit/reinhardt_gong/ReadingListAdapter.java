@@ -41,6 +41,8 @@ public class ReadingListAdapter extends ArrayAdapter<Reading> {
         TextView tvDiastolic = listViewItem.findViewById(R.id.textViewDiastolicPressure);
         TextView tvDate = listViewItem.findViewById(R.id.textViewDate);
         TextView tvTime = listViewItem.findViewById(R.id.textViewTime);
+        TextView tvCondition = listViewItem.findViewById(R.id.textViewCondition);
+
 
         Reading reading = readingList.get(position);
         String systolic = Float.toString(reading.getSystolicReading());
@@ -52,6 +54,7 @@ public class ReadingListAdapter extends ArrayAdapter<Reading> {
         tvDiastolic.setText(diastolic);
         tvDate.setText(reading.getReadingDate());
         tvTime.setText(reading.getReadingTime());
+        tvCondition.setText(reading.getCondition());
 
         return listViewItem;
     }

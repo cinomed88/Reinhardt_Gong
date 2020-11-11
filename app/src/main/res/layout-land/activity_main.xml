@@ -11,13 +11,11 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/editTextSerialNumber"
+        <Spinner
+            android:id="@+id/spinnerFamily"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hintSerialNumber"
-            android:inputType="text" />
+            android:entries="@array/familyMember" />
 
         <EditText
             android:id="@+id/editTextSystolic"
