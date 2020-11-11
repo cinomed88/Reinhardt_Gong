@@ -38,7 +38,6 @@ public class ReportActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
         arrayList2 = new ArrayList<>();
-
         arrayList3 = new ArrayList<>();
 
 
@@ -60,7 +59,7 @@ public class ReportActivity extends AppCompatActivity {
                     float avg_diastolic = arrayList.get(i).getDiastolicReading();
                     for (int j = i + 1; j < arrayList.size(); j++) {
                         if (arrayList.get(i).getFamily_member().equals(arrayList.get(j).getFamily_member())) {
-                            if (arrayList.get(i).getReadingDate().substring(5,7).equals(arrayList.get(j).getReadingDate().substring(5,7))) {
+                            if (arrayList.get(i).getReadingDate().substring(0,3).equals(arrayList.get(j).getReadingDate().substring(0,3))) {
                                 avg_systolic += (arrayList.get(j).getSystolicReading());
                                 avg_diastolic += (arrayList.get(i).getDiastolicReading());
                                 n++;

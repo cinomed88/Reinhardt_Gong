@@ -27,21 +27,23 @@ public class Reading {
         this.readingDate = readingDate;
         this.readingTime = readingTime;
         this.diastolicReading = diastolicReading;
-        if ((systolicReading < 120.0) && (diastolicReading < 80.0) ) {
+        if ((systolicReading >= 0 && systolicReading < 120.0) && (diastolicReading >= 0 && diastolicReading < 80.0)) {
 //            this.condition = Condition.NORMAL;
             this.condition = "Normal";
-        } else if ((systolicReading <= 129.0 && systolicReading>= 120) && (diastolicReading < 80.0) ) {
+        } else if ((systolicReading >= 120 && systolicReading < 130.0) && (diastolicReading >= 0 && diastolicReading < 80.0)) {
 //            this.condition = Condition.ELEVATED;
             this.condition = "Elevated";
-        } else if ((systolicReading <= 139.0) && (diastolicReading >= 80.0 && diastolicReading<=89)){
+        } else if ((systolicReading >= 130.0 && systolicReading < 140.0) || (diastolicReading >= 80.0 && diastolicReading < 90.0)){
 //            this.condition = Condition.STAGE1;
-            this.condition = "Stage 1";
-        } else if ((systolicReading <= 140.0) && (diastolicReading <= 90.0)) {
-//            this.condition = Condition.STAGE2;
             this.condition = "Stage 2";
-        } else {
+        } else if ((systolicReading >= 140.0 && systolicReading <= 180.0) || (diastolicReading >= 90.0 && diastolicReading <= 120.0)) {
+//            this.condition = Condition.STAGE2;
+            this.condition = "Stage 1";
+        } else if ((systolicReading > 180.0) || (diastolicReading > 120.0) ){
 //            this.condition = Condition.HYPERTENSIVE;
-            this.condition="Stage 3";
+            this.condition="Hypertensive Crisis";
+        } else {
+            this.condition="Invalid blood pressure";
         }
     }
 

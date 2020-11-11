@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     private void addTask(View v) {
         Calendar calendar;
         calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
         String currentDate = dateFormatter.format(calendar.getTime());
         String currentTime = timeFormatter.format(calendar.getTime());
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateReading(String id, String family_member, String Systolic, String Diastolic) {
         Calendar calendar;
         calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("MMM dd, yyyy");
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
         String currentDate = dateFormatter.format(calendar.getTime());
         String currentTime = timeFormatter.format(calendar.getTime());
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder myAlertBuilder =
                 new AlertDialog.Builder(MainActivity.this);
         myAlertBuilder.setTitle("Warning");
-        myAlertBuilder.setMessage("You are in the Hypertensive Crisis range!\nBe careful!");
+        myAlertBuilder.setMessage("You are in the Hypertensive Crisis range!\nConsult your doctor immediately!");
 
         myAlertBuilder.setPositiveButton("Ok",new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int which){

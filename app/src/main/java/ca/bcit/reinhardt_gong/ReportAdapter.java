@@ -11,7 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportViewHolder> {
 
@@ -38,7 +42,13 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportView
 //        holder.tv_systolic.setText(String.valueOf(arrayList.get(position).getSystolic()));
 //        holder.tv_diastolic.setText(String.valueOf(arrayList.get(position).getDiastolic()));
 //        holder.tv_avgCondition.setText(arrayList.get(position).getAvgCondition());
-        holder.tv_month.setText(arrayList.get(position).getReadingDate());
+        String dateString = arrayList.get(position).getReadingDate();
+        DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        Date date  = dateFormat.parse(dateString, new ParsePosition(0));
+        DateFormat monthFormat = new SimpleDateFormat("MMM yyyy");
+        String currentMonth = monthFormat.format(date);
+
+        holder.tv_month.setText(currentMonth);
         holder.tv_DSN.setText(arrayList.get(position).getFamily_member());
         holder.tv_systolic.setText(Float.toString(arrayList.get(position).getSystolicReading()));
         holder.tv_diastolic.setText(Float.toString(arrayList.get(position).getDiastolicReading()));

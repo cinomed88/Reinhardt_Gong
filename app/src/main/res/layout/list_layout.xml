@@ -9,32 +9,32 @@
     <TextView
         android:id="@+id/textViewSerialNumber"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <TextView
-    android:id="@+id/textViewSystolicPressure"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="TextView" />
+        android:id="@+id/textViewSystolicPressure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textViewDiastolicPressure"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textViewDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewCondition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
