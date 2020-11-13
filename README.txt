@@ -1,5 +1,7 @@
 # Reinhardt_Gong
+
 ### James Reinhardt (A01162209): james.reinhardt222@gmail.com
+
 ### Lucas Gong (A01024690): lucas.w.gong@gmail.com
 
 

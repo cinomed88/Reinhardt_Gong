@@ -56,7 +56,8 @@ public class ReportActivity extends AppCompatActivity {
                     float avg_diastolic = arrayList.get(i).getDiastolicReading();
                     for (int j = i + 1; j < arrayList.size(); j++) {
                         if (arrayList.get(i).getFamily_member().equals(arrayList.get(j).getFamily_member())) {
-                            if (arrayList.get(i).getReadingDate().substring(0,3).equals(arrayList.get(j).getReadingDate().substring(0,3))) {
+                            if (arrayList.get(i).getReadingDate().substring(0,3).equals(arrayList.get(j).getReadingDate().substring(0,3)) &&
+                                    arrayList.get(i).getReadingDate().substring(8,12).equals(arrayList.get(j).getReadingDate().substring(8,12))) {
                                 avg_systolic += (arrayList.get(j).getSystolicReading());
                                 avg_diastolic += (arrayList.get(j).getDiastolicReading());
                                 n++;
